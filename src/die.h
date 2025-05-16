@@ -8,7 +8,7 @@ class Die{
 
     public:
 
-        int roll();
+        int roll_die();
 
     private:
 
