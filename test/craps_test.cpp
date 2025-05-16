@@ -3,8 +3,11 @@
 #include "die.h"
 #include "roll.h"
 #include "shooter.h"
+#include"phase.h"
+#include"come_out_phase.h"
+#include"point_phase.h"
 
-/*TEST_CASE("Verify Test Configuration", "verification") {
+TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
 }
 
@@ -35,7 +38,7 @@ TEST_CASE("Check die rolls return a value from 2 to 12"){
 		REQUIRE( roller.roll_value() >= 2);
 	}
 	
-}*/
+}
 
 
 TEST_CASE("Test shooter returns a Roll verify that the roll result 2-12"){
@@ -51,5 +54,167 @@ TEST_CASE("Test shooter returns a Roll verify that the roll result 2-12"){
 		REQUIRE( v1 <= 12);
 		REQUIRE( zangetsu->roll_value() >= 2);
 	}
+
+}
+
+
+TEST_CASE(" ComeOutPhase get outcomes returns values RollOutcome"){
+
+	Die die1;
+	Die die2;
+
+	Shooter player(die1, die2);
+
+	Comeoutphase kenpachi;
+
+	Roll*roller;
+	
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 2);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::craps );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 3);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::craps );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 4);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 5);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 6);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 7);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::natural );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 8);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 9);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 10);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 11);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::natural );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 12);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::craps );
+
+	
+
+}
+
+
+TEST_CASE(" Test that PointPhase get outcomes returns values RollOutcome"){
+
+	Die die1;
+	Die die2;
+
+	Shooter player(die1, die2);
+
+	Pointphase kenpachi(4);
+
+	Roll*roller;
+	
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 2);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 3);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 4);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::point );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 5);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 6);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 7);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::seven_out );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 8);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 9);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 10);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 11);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
+
+	do{
+
+		roller = player.throw_dice(die1,die2);
+	}while(roller->roll_value()!= 12);
+	REQUIRE(kenpachi.get_outcome(roller) == RollOutcome::nopoint );
 
 }
